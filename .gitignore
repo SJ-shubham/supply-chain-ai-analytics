@@ -1,0 +1,35 @@
+# Python Virtual Environment
+.venv/
+venv/
+env/
+ENV/
+
+# Python Cache & Bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Large Datasets (Bypass GitHub 100MB File Limit)
+data/*.csv
+data/powerbi/*.csv
+*.csv
+
+# Internal Development Helper Scripts (Keep notebooks clean)
+notebooks/*_executor.py
+notebooks/generate_notebook_*.py
+
+# Keep directory structure intact
+!data/.gitkeep
+!data/powerbi/.gitkeep
+!reports/figures/.gitkeep
+!models/.gitkeep
+
+# Operating System & IDE Files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.tmp
+*.log
