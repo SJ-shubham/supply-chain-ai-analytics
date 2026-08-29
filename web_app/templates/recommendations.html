@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Decision Alert Engine - Supply Chain AI{% endblock %}
+{% block header_title %}Operational Supply Chain Decision & Alert Command Center{% endblock %}
+
+{% block content %}
+<div class="card" style="margin-bottom:24px;">
+    <h3 style="font-size:1.1rem; color:var(--accent-blue); margin-bottom:8px;">Automated Decision Rule-Engine</h3>
+    <p style="font-size:0.85rem; color:var(--text-secondary);">
+        Real-time operational directives mapped dynamically from analytical risk flags to supply chain interventions.
+    </p>
+</div>
+
+<div class="grid-2">
+    <!-- Active High Risk Directives -->
+    <div class="card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+            <h4 style="font-size:1.0rem; color:var(--accent-red);">High Risk Operational Directives</h4>
+            <span class="badge-high-risk">ACTIVE ALERTS</span>
+        </div>
+
+        <div style="margin-bottom:16px; background-color:var(--bg-main); padding:16px; border-radius:8px; border-left:4px solid var(--accent-red);">
+            <strong style="color:var(--text-primary); font-size:0.9rem;">First Class Carrier Delay Mitigation</strong>
+            <p style="font-size:0.85rem; color:var(--text-secondary); margin-top:6px; line-height:1.5;">
+                <strong>Trigger:</strong> High Risk Probability >= 0.50 AND Shipping Mode = First Class.<br>
+                <strong>Directive:</strong> Re-route dispatch to DHL Expedited Priority and notify Regional Logistics Team.
+            </p>
+        </div>
+
+        <div style="background-color:var(--bg-main); padding:16px; border-radius:8px; border-left:4px solid var(--accent-red);">
+            <strong style="color:var(--text-primary); font-size:0.9rem;">Unprofitable Customer Discount Cap</strong>
+            <p style="font-size:0.85rem; color:var(--text-secondary); margin-top:6px; line-height:1.5;">
+                <strong>Trigger:</strong> Customer Segment = Unprofitable Returner AND Discount Rate > 0.15.<br>
+                <strong>Directive:</strong> Cap maximum allowed discount rate at 10% to prevent profit margin erosion.
+            </p>
+        </div>
+    </div>
+
+    <!-- Optimization Directives -->
+    <div class="card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+            <h4 style="font-size:1.0rem; color:var(--accent-green);">Profitability & Growth Directives</h4>
+            <span class="badge-low-risk">OPTIMIZATION ACTIVE</span>
+        </div>
+
+        <div style="margin-bottom:16px; background-color:var(--bg-main); padding:16px; border-radius:8px; border-left:4px solid var(--accent-green);">
+            <strong style="color:var(--text-primary); font-size:0.9rem;">VIP Champion Loyalty Rewards</strong>
+            <p style="font-size:0.85rem; color:var(--text-secondary); margin-top:6px; line-height:1.5;">
+                <strong>Trigger:</strong> Customer Segment = VIP Champion.<br>
+                <strong>Directive:</strong> Assign dedicated key account manager, complimentary premium packaging, and zero delivery fee priority SLA.
+            </p>
+        </div>
+
+        <div style="background-color:var(--bg-main); padding:16px; border-radius:8px; border-left:4px solid var(--accent-green);">
+            <strong style="color:var(--text-primary); font-size:0.9rem;">30-Day Demand Stocking Directive</strong>
+            <p style="font-size:0.85rem; color:var(--text-secondary); margin-top:6px; line-height:1.5;">
+                <strong>Trigger:</strong> Time Series Revenue Forecast projected at $427,604.57.<br>
+                <strong>Directive:</strong> Pre-allocate inventory buffer at Pacific Asia and Western Europe regional fulfillment centers.
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}REST API Documentation - Supply Chain AI{% endblock %}
+{% block header_title %}REST API Technical Specifications & Documentation{% endblock %}
+
+{% block content %}
+<div class="card" style="margin-bottom:24px;">
+    <h3 style="font-size:1.1rem; color:var(--accent-blue); margin-bottom:8px;">REST API Developer Portal</h3>
+    <p style="font-size:0.85rem; color:var(--text-secondary);">
+        Integrate Machine Learning inference APIs directly into third-party ERPs, SAP, or logistics software.
+    </p>
+</div>
+
+<div class="grid-3">
+    <!-- Endpoint 1 -->
+    <div class="card">
+        <span class="badge-low-risk" style="margin-bottom:12px;">POST /api/predict/late-risk</span>
+        <h4 style="font-size:0.95rem; margin-bottom:8px; color:var(--text-primary);">Late Delivery Risk Inference API</h4>
+        <p style="font-size:0.8rem; color:var(--text-secondary); line-height:1.5; margin-bottom:16px;">
+            Executes XGBoost model inference returning late probability and risk classification level.
+        </p>
+        <pre style="background-color:var(--bg-main); padding:12px; border-radius:6px; font-size:0.75rem; color:var(--accent-blue); overflow-x:auto;">
+{
+  "scheduled_days": 2,
+  "product_price": 125.0,
+  "discount_rate": 0.10,
+  "shipping_mode": "First Class",
+  "market": "Pacific Asia",
+  "order_region": "Southeast Asia"
+}
+        </pre>
+    </div>
+
+    <!-- Endpoint 2 -->
+    <div class="card">
+        <span class="badge-low-risk" style="margin-bottom:12px;">POST /api/predict/duration</span>
+        <h4 style="font-size:0.95rem; margin-bottom:8px; color:var(--text-primary);">Shipping Duration Regressor API</h4>
+        <p style="font-size:0.8rem; color:var(--text-secondary); line-height:1.5; margin-bottom:16px;">
+            Executes Linear Regression model returning expected shipping duration in days.
+        </p>
+        <pre style="background-color:var(--bg-main); padding:12px; border-radius:6px; font-size:0.75rem; color:var(--accent-blue); overflow-x:auto;">
+{
+  "scheduled_days": 2,
+  "shipping_mode": "Standard Class"
+}
+        </pre>
+    </div>
+
+    <!-- Endpoint 3 -->
+    <div class="card">
+        <span class="badge-low-risk" style="margin-bottom:12px;">POST /api/predict/customer-segment</span>
+        <h4 style="font-size:0.95rem; margin-bottom:8px; color:var(--text-primary);">Customer Persona Classifier API</h4>
+        <p style="font-size:0.8rem; color:var(--text-secondary); line-height:1.5; margin-bottom:16px;">
+            Executes K-Means model returning customer RFM cluster label and marketing directive.
+        </p>
+        <pre style="background-color:var(--bg-main); padding:12px; border-radius:6px; font-size:0.75rem; color:var(--accent-blue); overflow-x:auto;">
+{
+  "recency": 12,
+  "frequency": 18,
+  "monetary": 4850.0,
+  "profit": 1240.0
+}
+        </pre>
+    </div>
+</div>
+{% endblock %}

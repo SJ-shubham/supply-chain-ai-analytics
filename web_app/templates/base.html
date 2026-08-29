@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Supply Chain AI Command Platform{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-title">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                    <polyline points="2 17 12 22 22 17"></polyline>
+                    <polyline points="2 12 12 17 22 12"></polyline>
+                </svg>
+                <span>SUPPLY CHAIN AI</span>
+            </div>
+        </div>
+
+        <ul class="sidebar-menu">
+            <li class="sidebar-item">
+                <a href="{{ url_for('index') }}" class="sidebar-link {% if active_page == 'home' %}active{% endif %}">
+                    <span>Executive Hub</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="{{ url_for('dashboard_view') }}" class="sidebar-link {% if active_page == 'dashboard' %}active{% endif %}">
+                    <span>Power BI Dashboard</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="{{ url_for('predict_late_risk_view') }}" class="sidebar-link {% if active_page == 'late_risk' %}active{% endif %}">
+                    <span>Late Risk AI Predictor</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="{{ url_for('predict_duration_view') }}" class="sidebar-link {% if active_page == 'duration' %}active{% endif %}">
+                    <span>Shipping Time Estimator</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="{{ url_for('customer_segment_view') }}" class="sidebar-link {% if active_page == 'segment' %}active{% endif %}">
+                    <span>Customer Segment AI</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="{{ url_for('predict_batch_view') }}" class="sidebar-link {% if active_page == 'batch' %}active{% endif %}">
+                    <span>Batch CSV Inference</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="{{ url_for('recommendations_view') }}" class="sidebar-link {% if active_page == 'recommendations' %}active{% endif %}">
+                    <span>Decision Alert Engine</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="{{ url_for('api_docs_view') }}" class="sidebar-link {% if active_page == 'api_docs' %}active{% endif %}">
+                    <span>REST API Documentation</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- Main Content Wrapper -->
+    <div class="main-wrapper">
+        <header class="top-navbar">
+            <h1 class="page-title">{% block header_title %}Executive Command Portal{% endblock %}</h1>
+            <div style="font-size:0.85rem; color:var(--text-secondary);">
+                <span>Status: </span><strong style="color:var(--accent-green);">SYSTEM ONLINE</strong>
+            </div>
+        </header>
+
+        <main class="content-container">
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

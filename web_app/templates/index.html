@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+
+{% block title %}Executive Command Hub - Supply Chain AI{% endblock %}
+{% block header_title %}Executive Command Portal & System Analytics{% endblock %}
+
+{% block content %}
+<!-- KPI Cards Row -->
+<div class="grid-4">
+    <div class="card metric-card">
+        <span class="metric-label">Total Revenue</span>
+        <span class="metric-value">$36,784,735</span>
+        <span class="metric-subtitle">+12.4% vs Prior Period</span>
+    </div>
+    <div class="card metric-card">
+        <span class="metric-label">Total Processed Orders</span>
+        <span class="metric-value">180,519</span>
+        <span class="metric-subtitle">Across 164 Countries</span>
+    </div>
+    <div class="card metric-card">
+        <span class="metric-label">Late Delivery Exposure</span>
+        <span class="metric-value" style="color:var(--accent-red);">54.82%</span>
+        <span class="metric-subtitle">Action Directive Active</span>
+    </div>
+    <div class="card metric-card">
+        <span class="metric-label">AI XGBoost Model ROC-AUC</span>
+        <span class="metric-value" style="color:var(--accent-green);">78.20%</span>
+        <span class="metric-subtitle">Production Deployed</span>
+    </div>
+</div>
+
+<!-- Standalone Visual Analytics Row -->
+<div class="grid-2">
+    <div class="card">
+        <h3 style="font-size:1rem; margin-bottom:16px; color:var(--text-secondary);">Monthly Sales & Revenue Trend ($)</h3>
+        <canvas id="revenueChart" height="200"></canvas>
+    </div>
+    <div class="card">
+        <h3 style="font-size:1rem; margin-bottom:16px; color:var(--text-secondary);">Customer Base Share by ML Persona Segment</h3>
+        <canvas id="segmentChart" height="200"></canvas>
+    </div>
+</div>
+
+<!-- Deployed Model Scorecard Table -->
+<div class="card">
+    <h3 style="font-size:1.05rem; margin-bottom:16px; color:var(--accent-blue);">Deployed Machine Learning Model Scorecard</h3>
+    <table style="width:100%; border-collapse:collapse; text-align:left; font-size:0.9rem;">
+        <thead>
+            <tr style="border-bottom:1px solid var(--border-color); color:var(--text-secondary);">
+                <th style="padding:10px;">Model Name</th>
+                <th style="padding:10px;">Predictive Task</th>
+                <th style="padding:10px;">Primary Evaluation Metric</th>
+                <th style="padding:10px;">Validation Score</th>
+                <th style="padding:10px;">Deployment Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr style="border-bottom:1px solid var(--border-color);">
+                <td style="padding:12px; font-weight:600;">XGBoost Classifier</td>
+                <td style="padding:12px;">Late Delivery Risk Prediction</td>
+                <td style="padding:12px;">ROC-AUC / Precision</td>
+                <td style="padding:12px; color:var(--accent-green); font-weight:700;">78.2% / 85.7%</td>
+                <td style="padding:12px;"><span class="badge-low-risk">PRODUCTION</span></td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border-color);">
+                <td style="padding:12px; font-weight:600;">Linear Regressor</td>
+                <td style="padding:12px;">Shipping Duration Estimation</td>
+                <td style="padding:12px;">MAE / RMSE</td>
+                <td style="padding:12px; color:var(--accent-green); font-weight:700;">0.985 Days MAE</td>
+                <td style="padding:12px;"><span class="badge-low-risk">PRODUCTION</span></td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border-color);">
+                <td style="padding:12px; font-weight:600;">K-Means Clustering</td>
+                <td style="padding:12px;">Customer RFM Persona Segmentation</td>
+                <td style="padding:12px;">Silhouette Score ($k=6$)</td>
+                <td style="padding:12px; color:var(--accent-green); font-weight:700;">0.4242</td>
+                <td style="padding:12px;"><span class="badge-low-risk">PRODUCTION</span></td>
+            </tr>
+            <tr>
+                <td style="padding:12px; font-weight:600;">SARIMAX / Holt-Winters</td>
+                <td style="padding:12px;">30-Day Demand & Revenue Forecast</td>
+                <td style="padding:12px;">Out-of-Sample MAE</td>
+                <td style="padding:12px; color:var(--accent-green); font-weight:700;">$12,875.59</td>
+                <td style="padding:12px;"><span class="badge-low-risk">PRODUCTION</span></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Revenue Trend Chart
+    const ctx1 = document.getElementById('revenueChart').getContext('2d');
+    new Chart(ctx1, {
+        type: 'line',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            datasets: [{
+                label: 'Monthly Sales Revenue ($)',
+                data: [2850000, 2920000, 3100000, 3050000, 3250000, 3400000, 3350000, 3500000, 3620000, 3550000, 3800000, 3950000],
+                borderColor: '#0EA5E9',
+                backgroundColor: 'rgba(14, 165, 233, 0.1)',
+                fill: true,
+                tension: 0.3
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: { legend: { display: false } },
+            scales: {
+                x: { grid: { color: '#334155' }, ticks: { color: '#94A3B8' } },
+                y: { grid: { color: '#334155' }, ticks: { color: '#94A3B8' } }
+            }
+        }
+    });
+
+    // Customer Persona Donut Chart
+    const ctx2 = document.getElementById('segmentChart').getContext('2d');
+    new Chart(ctx2, {
+        type: 'doughnut',
+        data: {
+            labels: ['VIP Champions', 'Loyal Regulars', 'At-Risk', 'High-AOV Spenders', 'Unprofitable Returners', 'Low-Spend One-Time'],
+            datasets: [{
+                data: [3520, 5840, 4120, 2150, 1890, 3132],
+                backgroundColor: ['#10B981', '#0EA5E9', '#F59E0B', '#8B5CF6', '#EF4444', '#64748B']
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: { legend: { position: 'right', labels: { color: '#94A3B8' } } }
+        }
+    });
+</script>
+{% endblock %}

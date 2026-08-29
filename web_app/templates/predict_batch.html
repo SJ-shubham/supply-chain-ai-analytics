@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}Batch CSV Inference Engine - Supply Chain AI{% endblock %}
+{% block header_title %}Batch CSV Upload & 1,000-Order Bulk AI Inference Engine{% endblock %}
+
+{% block content %}
+<div class="grid-2">
+    <!-- CSV Upload Card -->
+    <div class="card">
+        <h3 style="font-size:1.1rem; margin-bottom:16px; color:var(--accent-blue);">Upload Orders CSV Dataset</h3>
+        <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:20px; line-height:1.5;">
+            Upload a CSV containing order records. The XGBoost model will run bulk inference across all rows, generate late probabilities, classify risk levels, and output a downloadable CSV.
+        </p>
+
+        <form id="batchForm">
+            <div class="form-group">
+                <label class="form-label" for="csvFile">Select CSV File</label>
+                <input type="file" id="csvFile" accept=".csv" class="form-control" required>
+            </div>
+
+            <button type="submit" class="btn-primary" style="width:100%;">Run Batch Inference</button>
+        </form>
+    </div>
+
+    <!-- Batch Summary Result Card -->
+    <div class="card">
+        <h3 style="font-size:1.1rem; margin-bottom:16px; color:var(--accent-blue);">Batch Execution Summary</h3>
+
+        <div id="resultBox" class="result-box">
+            <div class="grid-3" style="margin-bottom:20px;">
+                <div style="background-color:var(--bg-card); padding:16px; border-radius:8px; text-align:center;">
+                    <div style="font-size:0.8rem; color:var(--text-secondary);">Total Processed</div>
+                    <div id="totalBatch" style="font-size:1.6rem; font-weight:700;">0</div>
+                </div>
+                <div style="background-color:var(--bg-card); padding:16px; border-radius:8px; text-align:center;">
+                    <div style="font-size:0.8rem; color:var(--accent-red);">High Risk Orders</div>
+                    <div id="highRiskCount" style="font-size:1.6rem; font-weight:700; color:var(--accent-red);">0</div>
+                </div>
+                <div style="background-color:var(--bg-card); padding:16px; border-radius:8px; text-align:center;">
+                    <div style="font-size:0.8rem; color:var(--accent-green);">Low Risk Orders</div>
+                    <div id="lowRiskCount" style="font-size:1.6rem; font-weight:700; color:var(--accent-green);">0</div>
+                </div>
+            </div>
+
+            <div style="text-align:center; margin-top:24px;">
+                <a id="downloadBtn" href="#" class="btn-primary" style="display:inline-block; text-decoration:none; width:100%;">
+                    Download Injected Predictions CSV
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

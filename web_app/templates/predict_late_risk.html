@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block title %}Late Risk AI Predictor - Supply Chain AI{% endblock %}
+{% block header_title %}XGBoost Late Delivery Risk Predictor (with SHAP Explainable AI){% endblock %}
+
+{% block content %}
+<div class="grid-2">
+    <!-- Form Card -->
+    <div class="card">
+        <h3 style="font-size:1.1rem; margin-bottom:16px; color:var(--accent-blue);">Order Parameter Inputs</h3>
+        <form id="lateRiskForm">
+            <div class="form-group">
+                <label class="form-label" for="scheduled_days">Scheduled Shipping Duration (Days)</label>
+                <input type="number" step="1" min="0" max="10" id="scheduled_days" class="form-control" value="2" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="product_price">Order Item Product Price ($)</label>
+                <input type="number" step="0.01" min="0" id="product_price" class="form-control" value="125.00" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="discount_rate">Order Item Discount Rate (0.00 to 0.50)</label>
+                <input type="number" step="0.01" min="0" max="0.50" id="discount_rate" class="form-control" value="0.10" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="shipping_mode">Shipping Mode</label>
+                <select id="shipping_mode" class="form-control">
+                    <option value="Standard Class">Standard Class</option>
+                    <option value="First Class" selected>First Class</option>
+                    <option value="Second Class">Second Class</option>
+                    <option value="Same Day">Same Day</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="market">Market</label>
+                <select id="market" class="form-control">
+                    <option value="Pacific Asia" selected>Pacific Asia</option>
+                    <option value="USCA">USCA</option>
+                    <option value="Europe">Europe</option>
+                    <option value="LATAM">LATAM</option>
+                    <option value="Africa">Africa</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="order_region">Order Region</label>
+                <select id="order_region" class="form-control">
+                    <option value="Southeast Asia" selected>Southeast Asia</option>
+                    <option value="South Asia">South Asia</option>
+                    <option value="Western Europe">Western Europe</option>
+                    <option value="Central America">Central America</option>
+                    <option value="Oceania">Oceania</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn-primary" style="width:100%;">Predict Late Delivery Risk</button>
+        </form>
+    </div>
+
+    <!-- Prediction Output & SHAP XAI Visualizer Card -->
+    <div class="card">
+        <h3 style="font-size:1.1rem; margin-bottom:16px; color:var(--accent-blue);">AI Risk Classification & SHAP XAI Breakdown</h3>
+
+        <div id="resultBox" class="result-box">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+                <span id="riskBadge" class="badge-high-risk">HIGH RISK DETECTED</span>
+                <span style="font-size:0.85rem; color:var(--text-secondary);">Model: XGBoost v1.0.0</span>
+            </div>
+
+            <div style="margin-bottom:20px;">
+                <div style="font-size:0.85rem; color:var(--text-secondary); font-weight:600;">Predicted Late Delivery Probability:</div>
+                <div id="probText" style="font-size:2.4rem; font-weight:800; color:var(--accent-blue); margin-top:4px;">0.0%</div>
+            </div>
+
+            <hr style="border-color:var(--border-color); margin-bottom:16px;">
+
+            <!-- Dynamic SHAP Factor Breakdown -->
+            <div id="shapContainer" class="shap-bar-container">
+                <!-- Javascript will populate top risk factors here -->
+            </div>
+        </div>
+
+        <div id="initialState" style="text-align:center; padding:60px 20px; color:var(--text-secondary);">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--border-color)" stroke-width="1.5" style="margin-bottom:12px;">
+                <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path>
+            </svg>
+            <p>Fill out the order parameters on the left and click <strong>Predict Late Delivery Risk</strong> to analyze AI probability & SHAP risk drivers.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

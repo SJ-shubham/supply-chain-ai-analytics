@@ -1,0 +1,93 @@
+# Phase 8 Master Implementation Plan: Full-Stack Flask Web Application Platform
+
+This master implementation plan details the complete end-to-end execution of **Phase 8** — building the **Supply Chain AI Analytics Command Center Web Platform**.
+
+---
+
+## User Review Required
+
+> [!IMPORTANT]
+> Phase 8 unifies all previous project components (ML Models, Time Series, Data Pipelines, Power BI) into a single, production-grade web application.
+> It includes **5 outstanding enterprise capabilities**:
+> 1. **Live Explainable AI (SHAP XAI Factor Breakdown)** on ML prediction forms.
+> 2. **Batch CSV File Upload & 1,000-Order Inference Engine** with downloadable predictions.
+> 3. **Standalone Interactive Chart.js Visual Analytics Hub**.
+> 4. **Automated Operational Decision & Supply Chain Alert Engine**.
+> 5. **Interactive REST API Documentation & JSON Tester Portal (`/api/docs`)**.
+
+---
+
+## Proposed Changes
+
+### Component 1: Flask Web Server & REST API Backend (`web_app/`)
+
+#### [NEW] [app.py](file:///c:/Users/Shubham/Desktop/DSProject/web_app/app.py)
+- Flask web application handling Web Page Routes and REST API Endpoints.
+- Pre-loads all ML models (`models/*.pkl`) and scalers at startup.
+- **REST APIs**:
+  - `POST /api/predict/late-risk`: XGBoost classifier prediction + SHAP feature importance calculation.
+  - `POST /api/predict/duration`: Linear Regressor shipping duration prediction.
+  - `POST /api/predict/customer-segment`: K-Means RFM persona classification.
+  - `POST /api/predict/batch`: Multipart CSV upload processor running batch inference on uploaded orders and generating summary statistics + output CSV download.
+
+---
+
+### Component 2: CSS Styling, JavaScript & Standalone Visuals (`web_app/static/`)
+
+#### [NEW] [style.css](file:///c:/Users/Shubham/Desktop/DSProject/web_app/static/css/style.css)
+- Premium Dark Slate (`#0F172A`) & Glassmorphism design system.
+- Responsive sidebar navigation, glowing metric cards, risk gauges, and transition animations.
+
+#### [NEW] [main.js](file:///c:/Users/Shubham/Desktop/DSProject/web_app/static/js/main.js)
+- Asynchronous Fetch API logic for single-order prediction forms, batch CSV processing, SHAP bar rendering, dynamic color callouts, and Chart.js initialization.
+
+---
+
+### Component 3: HTML Templates & AI Command Portals (`web_app/templates/`)
+
+#### [NEW] [base.html](file:///c:/Users/Shubham/Desktop/DSProject/web_app/templates/base.html)
+- Master base template with top navigation bar, sidebar menu, active route indicators, and footer.
+
+#### [NEW] [index.html](file:///c:/Users/Shubham/Desktop/DSProject/web_app/templates/index.html)
+- Executive Command Portal displaying system financial metrics, model scorecards, and live Chart.js graphs.
+
+#### [NEW] [dashboard.html](file:///c:/Users/Shubham/Desktop/DSProject/web_app/templates/dashboard.html)
+- Power BI Dashboard Command Hub supporting embedded Power BI interactive views.
+
+#### [NEW] [predict_late_risk.html](file:///c:/Users/Shubham/Desktop/DSProject/web_app/templates/predict_late_risk.html)
+- Interactive form for Late Delivery Risk prediction featuring **Live SHAP Explainable AI (XAI) Factor Breakdown** bars.
+
+#### [NEW] [predict_duration.html](file:///c:/Users/Shubham/Desktop/DSProject/web_app/templates/predict_duration.html)
+- Interactive form for Shipping Duration estimation with Target SLA variance callouts.
+
+#### [NEW] [customer_segment.html](file:///c:/Users/Shubham/Desktop/DSProject/web_app/templates/customer_segment.html)
+- Form for classifying customer profiles into 1 of 6 ML RFM personas with targeted marketing directives.
+
+#### [NEW] [predict_batch.html](file:///c:/Users/Shubham/Desktop/DSProject/web_app/templates/predict_batch.html)
+- Drag-and-drop CSV batch upload page. Runs batch predictions on up to 1,000 orders, renders summary risk pie chart, and enables output CSV download.
+
+#### [NEW] [recommendations.html](file:///c:/Users/Shubham/Desktop/DSProject/web_app/templates/recommendations.html)
+- Rule-based decision alert command center mapping analytical flags to operational supply chain directives.
+
+#### [NEW] [api_docs.html](file:///c:/Users/Shubham/Desktop/DSProject/web_app/templates/api_docs.html)
+- Interactive REST API Developer Documentation with live JSON endpoint tester.
+
+---
+
+### Component 4: One-Click App Runner (`run_app.py`)
+
+#### [NEW] [run_app.py](file:///c:/Users/Shubham/Desktop/DSProject/run_app.py)
+- One-click script verifying dependencies, confirming model files exist, and launching the Flask web server at `http://127.0.0.1:5000/`.
+
+---
+
+## Verification Plan
+
+### Automated Verification
+- Boot Flask web server via `python run_app.py`.
+- Run REST API tests via `curl` / `requests` for `/api/predict/late-risk`, `/api/predict/duration`, `/api/predict/customer-segment`, and `/api/predict/batch`.
+
+### Manual Verification
+- Test all web pages in browser (`/`, `/dashboard`, `/predict/late-risk`, `/predict/duration`, `/predict/customer-segment`, `/predict/batch`, `/recommendations`, `/api/docs`).
+- Submit single prediction form and verify SHAP XAI breakdown rendering.
+- Upload a test CSV file on `/predict/batch` and verify batch risk summary chart and output CSV download.
